@@ -1,57 +1,126 @@
-# Expense Tracker – Backend (Django)
+# Expense Tracker – Backend
 
-This is the backend web application for the Expense Tracker project.  
-It provides the database, API logic, and server-side functionality used by the frontend app.
+Django REST API for tracking personal expenses, with token-based authentication and a server-rendered dashboard.
 
----
-
-## 🚀 Features
-- Built with **Django**
-- Stores expenses in a database
-- CRUD (Create, Read, Update, Delete) operations for expenses
-- REST-style API endpoints (if using Django REST Framework)
-- Can connect to the Vue.js frontend
+The frontend client is available at [ExpenseTracker-Frontend](https://github.com/ShahadAlkamli/ExpenseTracker-Frontend).
 
 ---
 
-## 🧰 Tech Stack
-- **Python 3**
-- **Django**
-- **SQLite** (default database)
-- **Django REST Framework** (optional)
+## Features
+
+- REST API for creating, reading, updating, and deleting transactions
+- Running balance with separate income and expense totals
+- Token-based authentication
+- Session-based login and logout using Django's built-in auth views
+- Protected dashboard rendered with Django templates
+- Test suite covering the model and all API endpoints
 
 ---
 
-## 📁 Project Structure
+## Tech Stack
+
+- **Django 5** — web framework
+- **Django REST Framework** — API layer
+- **SQLite** — database
+- **Vanilla JavaScript** — dashboard interactivity
+
+---
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/transactions/` | List all transactions |
+| `POST` | `/api/transactions/` | Create a transaction |
+| `GET` | `/api/transactions/<id>/` | Retrieve a transaction |
+| `PUT` / `PATCH` | `/api/transactions/<id>/` | Update a transaction |
+| `DELETE` | `/api/transactions/<id>/` | Delete a transaction |
+| `POST` | `/accounts/login/` | Log in |
+| `POST` | `/accounts/logout/` | Log out |
+
+---
+
+## Data Model
+
+```python
+Transaction
+├── text    CharField(max_length=255)
+└── amount  DecimalField(max_digits=10, decimal_places=2)
 ```
-ExpenseTracker/
-    settings.py
-    urls.py
-    models.py
-    views.py
-db.sqlite3
-manage.py
+
+Positive amounts represent income, negative amounts represent expenses. The dashboard derives the running balance, total income, and total expenses from these values.
+
+---
+
+## Project Structure
+
+```
+├── ExpenseTracker/          # Project settings and root URLs
+├── myapp/
+│     ├── models.py          # Transaction model
+│     ├── views.py           # API views and dashboard
+│     ├── serializers.py     # DRF serializers
+│     ├── urls.py            # URL routing
+│     ├── admin.py           # Admin registration
+│     ├── tests.py           # Test suite
+│     ├── templates/         # Dashboard and login templates
+│     └── static/            # CSS and JavaScript
+├── manage.py
+└── README.md
 ```
 
 ---
 
-## ▶️ Run the Project Locally
+## Setup
 
-### 1️⃣ Install dependencies
-(If you have a requirements.txt file)
+### 1. Create a virtual environment
+
 ```bash
-pip install -r requirements.txt
+python -m venv venv
+source venv/bin/activate      # Windows: venv\Scripts\activate
 ```
 
-Or manually:
+### 2. Install dependencies
+
 ```bash
-pip install django
+pip install django djangorestframework
 ```
 
-### 2️⃣ Apply database migrations
+### 3. Apply migrations
+
 ```bash
 python manage.py migrate
 ```
+
+### 4. Create a superuser
+
+```bash
+python manage.py createsuperuser
+```
+
+### 5. Run the server
+
+```bash
+python manage.py runserver
+```
+
+The dashboard is available at `http://127.0.0.1:8000/` and the API at `http://127.0.0.1:8000/api/transactions/`.
+
+---
+
+## Tests
+
+```bash
+python manage.py test
+```
+
+The suite covers model creation and all CRUD endpoints.
+
+---
+
+## License
+
+This repository is provided for academic and learning purposes.```
 
 ### 3️⃣ Start the server
 ```bash
