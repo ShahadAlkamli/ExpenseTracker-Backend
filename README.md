@@ -1,8 +1,6 @@
-# Expense Tracker – Backend
+# Expense Tracker – Django
 
-Django REST API for tracking personal expenses, with token-based authentication and a server-rendered dashboard.
-
-The frontend client is available at [ExpenseTracker-Frontend](https://github.com/ShahadAlkamli/ExpenseTracker-Frontend).
+A full-stack expense tracking web application built with Django, featuring a REST API, token-based authentication, and a server-rendered dashboard.
 
 ---
 
@@ -10,9 +8,9 @@ The frontend client is available at [ExpenseTracker-Frontend](https://github.com
 
 - REST API for creating, reading, updating, and deleting transactions
 - Running balance with separate income and expense totals
-- Token-based authentication
+- Token-based authentication for API access
 - Session-based login and logout using Django's built-in auth views
-- Protected dashboard rendered with Django templates
+- Protected single-page dashboard rendered with Django templates
 - Test suite covering the model and all API endpoints
 
 ---
@@ -22,7 +20,7 @@ The frontend client is available at [ExpenseTracker-Frontend](https://github.com
 - **Django 5** — web framework
 - **Django REST Framework** — API layer
 - **SQLite** — database
-- **Vanilla JavaScript** — dashboard interactivity
+- **Django templates + vanilla JavaScript** — frontend
 
 ---
 
@@ -50,6 +48,8 @@ Transaction
 
 Positive amounts represent income, negative amounts represent expenses. The dashboard derives the running balance, total income, and total expenses from these values.
 
+A single-table schema was chosen deliberately: the data requirements are straightforward, and avoiding unnecessary relations keeps queries simple and the application easy to maintain.
+
 ---
 
 ## Project Structure
@@ -63,7 +63,7 @@ Positive amounts represent income, negative amounts represent expenses. The dash
 │     ├── urls.py            # URL routing
 │     ├── admin.py           # Admin registration
 │     ├── tests.py           # Test suite
-│     ├── templates/         # Dashboard and login templates
+│     ├── templates/         # Dashboard and login pages
 │     └── static/            # CSS and JavaScript
 ├── manage.py
 └── README.md
@@ -118,44 +118,12 @@ The suite covers model creation and all CRUD endpoints.
 
 ---
 
+## Related
+
+An earlier implementation of the same concept built with Vue 3, using browser storage instead of a database: [ExpenseTracker-Vue](https://github.com/ShahadAlkamli/ExpenseTracker-Vue).
+
+---
+
 ## License
 
-This repository is provided for academic and learning purposes.```
-
-### 3️⃣ Start the server
-```bash
-python manage.py runserver
-```
-
-The backend will run at:
-
-```
-http://127.0.0.1:8000/
-```
-
----
-
-## 🔗 Connecting to the Frontend (Optional)
-
-If using the Vue frontend:
-
-1. Start this Django server first  
-2. Enable CORS if necessary  
-3. Update your Vue app to send requests to:
-
-```
-http://127.0.0.1:8000/api/
-```
-
----
-
-## 📦 Creating Migrations
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
----
-
-## 📜 License
-This project is part of the **Expense Tracker Full-Stack Application**.
+This repository is provided for academic and learning purposes.
